@@ -17,4 +17,8 @@
 # define ERR_FILEOP "Cannot open file: "
 # define ERR_BADARG "Invalid number of arguments (must be 1)"
 
+# define WHITESPACES "\t\n\v\f\r "
+# define VALID_CHAR "01 "
+# define VALID_POS "NSWE"
+
 #endif
