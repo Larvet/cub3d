@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   define_cub3d.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 07:56:45 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/07 09:31:44 by locharve         ###   ########.fr       */
+/*   Created: 2024/10/07 07:56:28 by locharve          #+#    #+#             */
+/*   Updated: 2024/10/07 09:31:09 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef DEFINE_CUB3D_H
+# define DEFINE_CUB3D_H
 
-# include "define_cub3d.h"
-# include "includes_cub3d.h"
-# include "parsing_cub3d.h"
+# define ERR_MALLOC "Malloc error at: "
+# define ERR_FILEOP "Cannot open file: "
+# define ERR_BADARG "Invalid number of arguments (must be 1)"
 
 #endif

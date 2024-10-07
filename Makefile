@@ -6,7 +6,7 @@
 #    By: locharve <locharve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/07 05:30:41 by locharve          #+#    #+#              #
-#    Updated: 2024/10/07 05:38:30 by locharve         ###   ########.fr        #
+#    Updated: 2024/10/07 09:37:08 by locharve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,18 @@ OBJ_DIR = ./obj
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
-HEADERS = -I ./include
+HEADERS = -I ./include -I ./libft
+LIBFT = ./libft/libft.a
 
 # ls -1 *.c | sed -z 's/\n/ \\\n\t\t\t/g'
-SRC = parsing_cub3d.c t_str_utils.c
+SRC = main.c \
+	error.c \
+	parsing_cub3d.c \
+	t_str_utils.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
-all: $(NAME)
+all: libft $(NAME)
 	@echo "\001\e[1;32m\002Compilation OK \001\e[0m\002"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -34,7 +38,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 $(NAME): $(OBJ)
 	@echo "\001\e[1;32m\002Compiling cub3d \001\e[0m\002"
-	@$(CC) $(OBJS) $(HEADERS) -o $(NAME) -lreadline
+	@$(CC) $(OBJ) $(LIBFT) $(HEADERS) -o $(NAME)
+
+libft:
+	@make --no-print-directory -C ./libft -s
 
 clean:
 	@rm -rf $(OBJS_DIR)
@@ -44,4 +51,4 @@ fclean: clean
 
 re: clean all
 
-.PHONY: all, clean, fclean, re,
+.PHONY: all, clean, fclean, re, libft

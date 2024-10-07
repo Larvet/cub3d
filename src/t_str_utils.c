@@ -1,17 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   t_str_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/07 07:56:15 by locharve          #+#    #+#             */
+/*   Updated: 2024/10/07 10:45:19 by locharve         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 t_str	*t_str_new(char *str)
 {
 	t_str	*new_t_str;
 
-	new_t_str = malloc(sizeof(*new_t_str)); // calloc
+	new_t_str = ft_calloc(1, sizeof(*new_t_str));
 	if (new_t_str)
 	{
-		new_t_str->str = str;
+		new_t_str->str = ft_strdup(str);
+		if (!new_t_str->str)
+		{
+			free(new_t_str);
+			new_t_str = NULL;
+			print_error(ERR_MALLOC, "t_str_new");
+		}
 		new_t_str->next = NULL;
 	}
 	else
-		// error handling
+		print_error(ERR_MALLOC, "t_str_new");
 	return (new_t_str);
 }
 
@@ -20,44 +38,21 @@ void	t_str_addback(t_str **list, t_str *node)
 	if (list)
 	{
 		if (*list)
-			t_str_addback((*list)->next, node);
+			t_str_addback(&(*list)->next, node);
 		else
-			(*list)->next = node;
+			*list = node;
 	}
 }
 
 size_t	t_str_listsize(t_str *list)
 {
-	return (list != NULL + t_str_listsize(list->next));
-}
-
-char	**strlist_to_tab(t_str *list)
-{
-	char	**tab;
-	t_str	*head;
-	size_t	list_size;
-	size_t	i;
-
-	head = list;
-	list_size = t_str_listsize(list);
-	tab = malloc((list_size + 1) * sizeof(char *)); // calloc
-	if (tab)
-	{
-		i = 0;
-		while (i < list_size && list)
-		{
-			tab[i] = list->str;
-			list = list->next;
-			i++;
-		}
-	}
+	if (!list)
+		return (0);
 	else
-		// error handling
-	list = head;
-	return (tab);
+		return (1 + t_str_listsize(list->next));
 }
 
-void	strlist_free(t_str *list)
+void	strlist_free(t_str *list, int free_str)
 {
 	t_str	*tmp;
 
@@ -66,5 +61,7 @@ void	strlist_free(t_str *list)
 		tmp = list;
 		list = list->next;
 		free(tmp);
+		if (free_str)
+			free(tmp->str);
 	}
 }
