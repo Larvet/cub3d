@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 07:56:15 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/07 10:45:19 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/08 06:38:11 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ t_str	*t_str_new(char *str)
 	new_t_str = ft_calloc(1, sizeof(*new_t_str));
 	if (new_t_str)
 	{
-		new_t_str->str = ft_strdup(str);
+		new_t_str->str = str;
+		/*
 		if (!new_t_str->str)
 		{
 			free(new_t_str);
 			new_t_str = NULL;
 			print_error(ERR_MALLOC, "t_str_new");
 		}
+		*/
 		new_t_str->next = NULL;
 	}
 	else
@@ -60,8 +62,8 @@ void	strlist_free(t_str *list, int free_str)
 	{
 		tmp = list;
 		list = list->next;
-		free(tmp);
 		if (free_str)
 			free(tmp->str);
+		free(tmp);
 	}
 }

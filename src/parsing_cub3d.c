@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 07:56:10 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/07 10:48:44 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:04:15 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_str	*read_file(int fd)
 			if (!tmp)
 				break ;
 			t_str_addback(&strlist, tmp);
-			free(line); /////////////////
 			line = get_next_line(fd);
 		}
 		if (line)
@@ -81,7 +80,10 @@ char	**make_strtab_from_file(char *filename)
 	{
 		strlist = read_file(fd);
 		if (strlist)
+		{
 			tab = strlist_to_tab(strlist);
+			strlist_free(strlist, 0);
+		}
 		close(fd);
 	}
 	else

@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   includes_cub3d.h                                   :+:      :+:    :+:   */
+/*   struct_cub3d.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 07:56:50 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/08 06:39:25 by locharve         ###   ########.fr       */
+/*   Created: 2024/10/08 06:48:43 by locharve          #+#    #+#             */
+/*   Updated: 2024/10/08 10:04:03 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INCLUDES_CUB3D_H
-# define INCLUDES_CUB3D_H
+#ifndef STRUCT_CUB3D_H
+# define STRUCT_CUB3D_H
 
-# include <stdio.h> //tmp
+tupedef enum e_error
+{}	t_error;
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include "libft.h"
-# include "get_next_line.h"
+typedef enum e_av_id
+{
+	NO_,
+	SO_,
+	WE_,
+	EA_,
+	F_,
+	C_
+}	t_av_id;
+
+typedef struct s_cub
+{
+	char	**param_id;
+	char	*av[6];
+	char	*path[4]; // !
+	char	rgb[2][3]; // ?
+	char
+	char	**map;
+	t_error	error;
+}	t_cub;
 
 #endif

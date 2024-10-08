@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   includes_cub3d.h                                   :+:      :+:    :+:   */
+/*   t_cub.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 07:56:50 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/08 06:39:25 by locharve         ###   ########.fr       */
+/*   Created: 2024/10/08 06:55:32 by locharve          #+#    #+#             */
+/*   Updated: 2024/10/08 10:04:11 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INCLUDES_CUB3D_H
-# define INCLUDES_CUB3D_H
+#include "cub3d.h"
 
-# include <stdio.h> //tmp
+int	t_cub_init(t_cub *cub)
+{
+	ft_bzero(cub, sizeof(cub));
+	cub->param_id = strtab_init(6, "NO", "SO", "WE", "EA", "F", "C");
+	if (!cub->param_id)
+		return (0);
+	return (1);
+}
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include "libft.h"
-# include "get_next_line.h"
-
-#endif
+void	t_cub_delete(t_cub *cub)
+{
+	strtab_free(cub->param_id);
+}

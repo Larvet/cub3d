@@ -1,55 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   strtab_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 07:57:37 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/08 10:04:17 by locharve         ###   ########.fr       */
+/*   Created: 2024/10/08 07:29:36 by locharve          #+#    #+#             */
+/*   Updated: 2024/10/08 10:04:08 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	print_strtab(char **tab)
+void	strtab_free(char **strtab)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	while (strtab && strtab[i])
 	{
-		write(1, tab[i], ft_strlen(tab[i]));
+		free(strtab[i]);
 		i++;
 	}
+	if (strtab)
+		free(strtab);
 }
 
-static void	free_strtab(char **tab)
+char	**strtab_init(size_t size, ...)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
-int	main(int argc, char **argv)
-{
-	t_cub	cub;
+	va_list	p;
 	char	**strtab;
+	size_t	i;
 
-	if (argc == 2)
+	strtab = ft_calloc(size + 1, sizeof(char *));
+	if (strtab)
 	{
-		t_cub_init(&cub);
-		strtab = make_strtab_from_file(argv[1]);
-		print_strtab(strtab);
-		free_strtab(strtab); // strtab_free
-
+		va_start(p, size);
+		i = 0;
+		while (i < size)
+		{
+			strtab[i] = ft_strdup(va_arg(p, char *));
+			if (!strtab[i])
+			{
+				strtab_free(strtab);
+				break ;
+			}
+		}
+		va_end(p);
 	}
-	else
-		print_error(ERR_BADARG, NULL);
+	return (strtab);
 }
