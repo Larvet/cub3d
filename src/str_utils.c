@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 07:30:03 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/08 10:04:10 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:07:06 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	str_isonly(const char *str, char *set)
 	i = 0;
 	while (str && str[i] && is_in_str(set, str[i]))
 		i++;
-	return (str && !str[i]);
+	return (str && i && !str[i]);
 }
 
 int	str_contains(const char *str, char *set)

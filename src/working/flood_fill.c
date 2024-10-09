@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_cub.c                                            :+:      :+:    :+:   */
+/*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 06:55:32 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/09 11:07:18 by locharve         ###   ########.fr       */
+/*   Created: 2024/10/09 10:32:39 by locharve          #+#    #+#             */
+/*   Updated: 2024/10/09 10:45:15 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	t_cub_init(t_cub *cub)
+static void	set_pos(char **map, int *x, int *y)
 {
-	ft_bzero(cub, sizeof(cub));
-	cub->param_id = strtab_init(4, "NO", "SO", "WE", "EA");
-	if (!cub->param_id)
-		return (0);
-	return (1);
+	*y = 0;
+	while (map && map[*y] && !str_contains(map[*y], "NSWE"))
+		*y += 1;
+	*x = 0;
+	while (map && map[*y] && map[*y][*x]
+		&& !is_in_str("NSWE", map[*y][*x]))
+		*x += 1;
 }
 
-void	t_cub_delete(t_cub *cub)
+int	flood_fill(char **map) // int ** ?
 {
-	strtab_free(cub->param_id);
-	strtab_free(cub->path);
-	strtab_free(cub->map);
+	int	x;
+	int	y;
+
+	set_pos(map, x, y);
+
 }
