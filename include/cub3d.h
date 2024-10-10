@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 07:56:45 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/07 09:31:44 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:32:19 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include "define_cub3d.h"
+# include "struct_cub3d.h"
 # include "includes_cub3d.h"
 # include "parsing_cub3d.h"
 

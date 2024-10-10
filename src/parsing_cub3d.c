@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 07:56:10 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/09 11:07:26 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:57:52 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,16 @@ t_str	*read_file(int fd)
 	return (strlist);
 }
 
+static int	extension_check(char *filename, char *ext)
+{
+	char	*ptr;
+
+	ptr = ft_strrchr(filename, '.');
+	if (!ptr || ft_strncmp(ptr, ext, ft_strlen(ext)))
+		return (0);
+	return (1);
+}
+
 char	**make_strtab_from_file(char *filename)
 {
 	char	**tab;
@@ -75,6 +85,11 @@ char	**make_strtab_from_file(char *filename)
 
 	tab = NULL;
 	strlist = NULL;
+	if (!extension_check(filename, ".cub"))
+	{
+		print_error(ERR_BADEXT, NULL); ///
+		return (NULL);
+	}
 	fd = open(filename, O_RDONLY);
 	if (fd != -1)
 	{

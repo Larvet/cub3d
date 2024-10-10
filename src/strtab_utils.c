@@ -6,11 +6,12 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 07:29:36 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/08 10:04:08 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:53:57 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
 void	strtab_free(char **strtab)
 {
@@ -36,8 +37,8 @@ char	**strtab_init(size_t size, ...)
 	if (strtab)
 	{
 		va_start(p, size);
-		i = 0;
-		while (i < size)
+		i = -1;
+		while (++i < size)
 		{
 			strtab[i] = ft_strdup(va_arg(p, char *));
 			if (!strtab[i])

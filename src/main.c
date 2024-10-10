@@ -6,13 +6,14 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 07:57:37 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/09 11:07:08 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:57:50 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
-static void	print_strtab(char **tab)
+static void	strtab_print(char **tab)
 {
 	int	i;
 
@@ -24,19 +25,6 @@ static void	print_strtab(char **tab)
 	}
 }
 
-static void	free_strtab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
 int	main(int argc, char **argv)
 {
 	t_cub	cub;
@@ -46,9 +34,13 @@ int	main(int argc, char **argv)
 	{
 		t_cub_init(&cub);
 		strtab = make_strtab_from_file(argv[1]);
-		print_strtab(strtab);
-		free_strtab(strtab); // strtab_free
-
+		if (strtab)
+		{
+			printf("check_format = %d\n", check_format(cub.param_id, strtab)); ///
+			strtab_print(strtab);
+			strtab_free(strtab); // strtab_free
+		}
+		t_cub_destroy(&cub);
 	}
 	else
 		print_error(ERR_BADARG, NULL);

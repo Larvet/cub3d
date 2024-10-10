@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 08:08:42 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/09 11:07:23 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:42:44 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	t_cub_set_paths(t_cub *cub, char **strtab)
 	{
 		i += skip_empty_lines(&strtab[i]);
 		pos = 2 + skip_incharset(&strtab[i][2], WHITESPACES);
-		len = 0;
 		len = skip_outcharset(&strtab[i][pos], WHITESPACES);
 		cub->path[j] = ft_strndup(&strtab[i][pos], len);
 		if (!cub->path[j])
@@ -59,12 +58,34 @@ static int	t_cub_set_paths(t_cub *cub, char **strtab)
 	return (i);
 }
 
+static int	atoi_rgb(int *rgb, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i] && ft_isdigit(str[i]))
+		i++;
+	if (i > 3)
+	{
+		print_error(ERR_BADRGB, NULL);
+		return (0); // error handling
+	}
+	*rgb = ft_atoi(str);
+	if (*rgb < 0 || *rgb > 255)
+	{
+		print_error(ERR_BADRGB, NULL);
+		return (0); // error handling
+	}
+	return (i);
+}
+
 static int	t_cub_set_rgb(t_cub *cub, char **strtab)
 {
 	int	i;
 	int	j;
 	int	k;
 	int	pos;
+	int	tmp;
 
 	i = 0;
 	j = -1;
@@ -72,15 +93,15 @@ static int	t_cub_set_rgb(t_cub *cub, char **strtab)
 	{
 		i += skip_empty_lines(&strtab[i]);
 		k = -1;
+		pos = 1;
 		while (++k < 3)
 		{
-			pos = skip_incharset(&strtab[i][1], WHITESPACES);
-			cub->rgb[j][k] = ft_atoi(&strtab[i][pos]); // protecc atoi ?
-			if (cub->rgb[j][k] < 0 || cub->rgb[j][k] > 255)
-			{
-				print_error(ERR_BADRGB, NULL);
+			tmp = atoi_rgb(&cub->rgb[j][k], &strtab[i][pos]);
+			if (!tmp)
+				break ; ///
+			pos += tmp + skip_incharset(&strtab[i][pos + tmp], WHITESPACES);
+			if (strtab[i][pos] != ',')
 				break ;
-			}
 		}
 	}
 	return (i * (j == 2));
@@ -94,12 +115,12 @@ static int	t_cub_set_map(t_cub *cub, char **strtab)
 
 	if (!cub || !strtab)
 		return (0);
-	size = skip_empty_lines(strtab);
-	i = size;
+	i = skip_empty_lines(strtab);
+	size = i;
 	j = 0;
 	while (strtab && strtab[size] && !str_isonly(strtab[size], WHITESPACES))
 		size++;
-	cub->map = ft_calloc(size + 1, sizeof(char *));
+	cub->map = ft_calloc(size - i + 1, sizeof(char *));
 	while (cub->map && strtab[i + j] && i + j < size)
 	{
 		cub->map[j] = ft_strdup(strtab[i + j]);
