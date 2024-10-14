@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   str_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 07:56:45 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/11 10:38:45 by locharve         ###   ########.fr       */
+/*   Created: 2024/10/14 06:30:49 by locharve          #+#    #+#             */
+/*   Updated: 2024/10/14 10:55:31 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "cub3d.h"
 
-# include "includes_cub3d.h"
-# include "define_cub3d.h"
-# include "struct_cub3d.h"
-# include "parsing_cub3d.h"
+int	skip_incharset(char *str, char *set)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (str && str[i] && set && is_in_str(set, str[i]))
+		i++;
+	return (i);
+}
+
+int	skip_outcharset(char *str, char *set)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i] && set && !is_in_str(set, str[i]))
+		i++;
+	return (i);
+}

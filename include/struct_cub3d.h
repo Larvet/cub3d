@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 06:48:43 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/10 10:56:04 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:08:02 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,24 @@ typedef enum e_rgb_id // rgb[F_][R_], rgb[F_][G_] etc.
 	B_
 }	t_rgb_id;
 
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}	t_pos;
+
 typedef struct s_cub
 {
 	char			**param_id;
-//	char			**raw;
-//	char			*av[4];
 	char			**path; // [4]
 	int				rgb[2][3]; // 0 = F_ ; 1 = C_
-	char	**map;
-
+	char			**raw; // all the file
+//	char			**map; // raw map
+	char			**cmap; // map with every line at same len
+	int				**imap; // int map
+	size_t			width;
+	size_t			height;
+	t_pos			player_pos;
 //	t_error	error;
 }	t_cub;
 

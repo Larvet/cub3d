@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 07:23:29 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/10 11:57:47 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/14 06:39:55 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,9 @@ int	check_map_format(char **strtab)
 
 	i = 0;
 	pos_count = 0;
-			printf("test:\t%s\n", strtab[i]); /////////
 	while (strtab && strtab[i] && pos_count <= 1
 		&& !str_isonly(strtab[i], WHITESPACES))
 	{
-		printf("test:\t%s\n", strtab[i]); /////////
 		if (str_contains(strtab[i], "NSWE"))
 			pos_count++;
 		else if (!str_isonly(strtab[i], "01 \n"))
@@ -92,27 +90,23 @@ int	check_format(char **av, char **strtab) // av == cub->param_id
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
-	while (strtab && strtab[i] && av[j])
+	i = -1;
+	j = -1;
+	while (strtab && strtab[++i] && av[++j])
 	{
 		i += skip_empty_lines(&strtab[i]);
-		if (!nswe_line_format(strtab[i], av[j])) // error msg
+		if (!nswe_line_format(strtab[i], av[j]))
 			return (1);
-		i++;
-		j++;
 	}
 	i += skip_empty_lines(&strtab[i]);
-	if (!color_line_format(strtab[i], 'F')) // error msg
+	if (!color_line_format(strtab[i], 'F'))
 		return (2);
 	i += skip_empty_lines(&strtab[i]) + 1;
-	if (!color_line_format(strtab[i], 'C')) // error msg
-		return (3);
-//	printf("line = %s\n", strtab[i]); ////
+	if (!color_line_format(strtab[i], 'C'))
+		return (2);
 	i++;
 	i += skip_empty_lines(&strtab[i]);
-//	printf("line = %s\n", strtab[i]); ////
-	if (!check_map_format(&strtab[i])) // error msg
-		return (4);
-	return (0);	// 0 if OK
+	if (!check_map_format(&strtab[i]))
+		return (3);
+	return (0);
 }

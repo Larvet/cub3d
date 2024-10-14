@@ -6,7 +6,7 @@
 #    By: locharve <locharve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/07 05:30:41 by locharve          #+#    #+#              #
-#    Updated: 2024/10/10 10:45:03 by locharve         ###   ########.fr        #
+#    Updated: 2024/10/14 11:28:50 by locharve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,18 @@ LIBFT = ./libft/libft.a
 
 # ls -1 *.c | sed -z 's/\n/ \\\n\t\t\t/g'
 SRC = check_format.c \
+	check_map_edges.c \
 	error.c \
 	main.c \
-	parsing_cub3d.c \
+	smooth_map.c \
 	strtab_utils.c \
+	str_utils2.c \
 	str_utils.c \
 	t_cub.c \
+	t_cub_make_strtab_from_file.c \
 	t_cub_set_args.c \
+	t_cub_set_imap.c \
+	t_cub_set_rgb.c \
 	t_str_utils.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

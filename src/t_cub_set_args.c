@@ -6,31 +6,11 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 08:08:42 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/10 10:42:44 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/14 06:49:17 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	skip_incharset(char *str, char *set)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i] && set && is_in_str(set, str[i]))
-		i++;
-	return (i);
-}
-
-int	skip_outcharset(char *str, char *set)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i] && set && !is_in_str(set, str[i]))
-		i++;
-	return (i);
-}
 
 static int	t_cub_set_paths(t_cub *cub, char **strtab)
 {
@@ -58,55 +38,6 @@ static int	t_cub_set_paths(t_cub *cub, char **strtab)
 	return (i);
 }
 
-static int	atoi_rgb(int *rgb, char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i] && ft_isdigit(str[i]))
-		i++;
-	if (i > 3)
-	{
-		print_error(ERR_BADRGB, NULL);
-		return (0); // error handling
-	}
-	*rgb = ft_atoi(str);
-	if (*rgb < 0 || *rgb > 255)
-	{
-		print_error(ERR_BADRGB, NULL);
-		return (0); // error handling
-	}
-	return (i);
-}
-
-static int	t_cub_set_rgb(t_cub *cub, char **strtab)
-{
-	int	i;
-	int	j;
-	int	k;
-	int	pos;
-	int	tmp;
-
-	i = 0;
-	j = -1;
-	while (strtab && strtab[i] && ++j < 2)
-	{
-		i += skip_empty_lines(&strtab[i]);
-		k = -1;
-		pos = 1;
-		while (++k < 3)
-		{
-			tmp = atoi_rgb(&cub->rgb[j][k], &strtab[i][pos]);
-			if (!tmp)
-				break ; ///
-			pos += tmp + skip_incharset(&strtab[i][pos + tmp], WHITESPACES);
-			if (strtab[i][pos] != ',')
-				break ;
-		}
-	}
-	return (i * (j == 2));
-}
-
 static int	t_cub_set_map(t_cub *cub, char **strtab)
 {
 	size_t	i;
@@ -120,11 +51,11 @@ static int	t_cub_set_map(t_cub *cub, char **strtab)
 	j = 0;
 	while (strtab && strtab[size] && !str_isonly(strtab[size], WHITESPACES))
 		size++;
-	cub->map = ft_calloc(size - i + 1, sizeof(char *));
-	while (cub->map && strtab[i + j] && i + j < size)
+	cub->cmap = ft_calloc(size - i + 1, sizeof(char *));
+	while (cub->cmap && strtab[i + j] && i + j < size)
 	{
-		cub->map[j] = ft_strdup(strtab[i + j]);
-		if (!cub->map[j])
+		cub->cmap[j] = ft_strdup(strtab[i + j]);
+		if (!cub->cmap[j])
 			break ;
 		j++;
 	}
@@ -141,14 +72,11 @@ int	t_cub_set_args(t_cub *cub, char **strtab)
 	i = t_cub_set_paths(cub, strtab);
 	if (!i)
 		return (0);
-	tmp = t_cub_set_rgb(cub, &strtab[i + 1]);
+	tmp = t_cub_set_rgb(cub, &strtab[i]);
 	if (!tmp)
+	{
 		return (0);
+	}
 	i += tmp;
 	return (t_cub_set_map(cub, &strtab[i]));
-	// strtab_free in calling function
 }
-
-// next steps :
-// flood fill
-// make map square

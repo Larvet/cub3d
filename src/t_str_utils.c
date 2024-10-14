@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 07:56:15 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/08 06:38:11 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/14 06:36:49 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ t_str	*t_str_new(char *str)
 	if (new_t_str)
 	{
 		new_t_str->str = str;
-		/*
-		if (!new_t_str->str)
-		{
-			free(new_t_str);
-			new_t_str = NULL;
-			print_error(ERR_MALLOC, "t_str_new");
-		}
-		*/
 		new_t_str->next = NULL;
 	}
 	else

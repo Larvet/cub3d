@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_cub3d.c                                    :+:      :+:    :+:   */
+/*   t_cub_make_strtab_from_file.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 07:56:10 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/10 11:57:52 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/14 06:38:09 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,16 @@ static int	extension_check(char *filename, char *ext)
 	return (1);
 }
 
-char	**make_strtab_from_file(char *filename)
+int	t_cub_make_strtab_from_file(t_cub *cub, char *filename)
 {
-	char	**tab;
 	t_str	*strlist;
 	int		fd;
 
-	tab = NULL;
 	strlist = NULL;
 	if (!extension_check(filename, ".cub"))
 	{
-		print_error(ERR_BADEXT, NULL); ///
-		return (NULL);
+		print_error(ERR_BADEXT, NULL);
+		return (0);
 	}
 	fd = open(filename, O_RDONLY);
 	if (fd != -1)
@@ -96,12 +94,12 @@ char	**make_strtab_from_file(char *filename)
 		strlist = read_file(fd);
 		if (strlist)
 		{
-			tab = strlist_to_tab(strlist);
+			cub->raw = strlist_to_tab(strlist);
 			strlist_free(strlist, 0);
 		}
 		close(fd);
 	}
 	else
 		print_error(ERR_FILEOP, filename);
-	return (tab);
+	return (cub->raw != NULL);
 }
