@@ -10,11 +10,11 @@ int	nswe_line_format(char *line, char *nswe)
 	if (!strcmp(line, nswe))
 	{
 		i = 2;
-		while (is_in_str(WHITESPACES, line[i]))
+		while (is_in_str(WHITESPACES, line[i]) >= 0)
 			i++;
 		while (ft_isascii(line[i]))
 			i++;
-		while (is_in_str(WHITESPACES, line[i]))
+		while (is_in_str(WHITESPACES, line[i]) >= 0)
 			i++;
 		return (!line[i]);
 	}
@@ -52,11 +52,11 @@ int	color_format(char **strtab)
 		while (i < 2)
 		{
 			j = 1;
-			while (is_in_str(WHITESPACES, strtab[i][j]))
+			while (is_in_str(WHITESPACES, strtab[i][j]) >= 0)
 				j++;
 			if (ft_strlen_while(&strtab[i][j], ft_isdigit) != 3) //
 				break ;
-			while (is_in_str(WHITESPACES, strtab[i][j]))
+			while (is_in_str(WHITESPACES, strtab[i][j]) >= 0)
 				j++;
 			if (strtab[i][j] != ',')
 				break ;

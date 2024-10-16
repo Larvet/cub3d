@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 07:29:36 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/14 08:06:27 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/16 09:46:04 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,25 @@ size_t	strtab_print(char **tab)
 {
 	ssize_t	tmp;
 	size_t	count;
-	int	i;
+	size_t	len;
+	int		i;
 
 	count = 0;
 	i = 0;
 	while (tab && tab[i])
 	{
-		tmp = write(1, tab[i], ft_strlen(tab[i]));
+		len = ft_strlen(tab[i]);
+		tmp = write(1, tab[i], len);
 		if (tmp < 0)
-			break;
-		count += tmp;
-		tmp = write(1, "\n", 1);
-		if (tmp < 0)
-			break;
-		count += tmp;
+			break ;
+		if (tab[i][len - 1] != '\n')
+		{
+			count += tmp;
+			tmp = write(1, "\n", 1);
+			if (tmp < 0)
+				break ;
+			count += tmp;
+		}
 		i++;
 	}
 	return (count);

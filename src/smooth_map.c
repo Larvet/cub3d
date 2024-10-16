@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 07:04:50 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/14 12:06:40 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/16 08:11:42 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	set_pos(t_pos *player_pos, char **map)
 		y++;
 	x = 0;
 	while (map && map[y] && map[y][x]
-		&& !is_in_str("NSWE", map[y][x]))
+		&& is_in_str("NSWE", map[y][x]) < 0)
 		x++;
 	player_pos->x = x;
 	player_pos->y = y;

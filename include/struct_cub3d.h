@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 06:48:43 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/14 12:08:02 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/16 08:55:44 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_cub
 	char			**path; // [4]
 	int				rgb[2][3]; // 0 = F_ ; 1 = C_
 	char			**raw; // all the file
-//	char			**map; // raw map
 	char			**cmap; // map with every line at same len
 	int				**imap; // int map
 	size_t			width;
@@ -57,7 +56,7 @@ typedef struct s_cub
 
 typedef struct s_str
 {
-	char	*str;
+	char			*str;
 	struct s_str	*next;
 }	t_str;
 

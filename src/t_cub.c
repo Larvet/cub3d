@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 06:55:32 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/14 12:06:43 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/16 09:04:07 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	t_cub_print(t_cub *cub)
 	strtab_print(cub->raw);
 	ft_putstr_fd("\n-------     cmap    -------\n", 1);
 	strtab_print(cub->cmap);
+	ft_putstr_fd("\n-------     imap    -------\n", 1);
+	imap_print(cub->imap, cub->height, cub->width);
 }
 
 void	t_cub_destroy(t_cub *cub)
@@ -74,5 +76,5 @@ void	t_cub_destroy(t_cub *cub)
 	strtab_free(cub->path);
 	strtab_free(cub->raw);
 	strtab_free(cub->cmap);
-	intptrtab_free(cub->imap);
+	intptrtab_free(cub->imap, cub->height);
 }

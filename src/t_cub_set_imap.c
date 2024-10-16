@@ -6,23 +6,23 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 10:56:20 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/14 12:07:55 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/16 09:05:25 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	imap_print(t_cub cub, int **map)
+void	imap_print(int **map, size_t h, size_t w)
 {
 	size_t	i;
 	size_t	j;
 	char	c;
 
 	i = 0;
-	while (i < cub.height)
+	while (i < h)
 	{
 		j = 0;
-		while (j < cub.width)
+		while (j < w)
 		{
 			c = map[i][j] + 48;
 			write(1, &c, 1);
@@ -33,12 +33,12 @@ void	imap_print(t_cub cub, int **map)
 	}
 }
 
-void	intptrtab_free(int **tab)
+void	intptrtab_free(int **tab, size_t h)
 {
 	size_t	i;
 
 	i = 0;
-	while (tab && tab[i])
+	while (tab && i < h && tab[i])
 	{
 		free(tab[i]);
 		i++;
@@ -53,28 +53,20 @@ int	*set_inttab(t_cub *cub, char *line)
 	size_t	i;
 
 	dst = ft_calloc(cub->width, sizeof(int));
-	if (dst)
-	{
-		i = 0;
-		while (i < cub->width && line[i])
-		{
-			if (line[i] == 'X' || line[i] == '0')
-				dst[i] = 0;
-			else if (line[i] == '1')
-				dst[i] = 1;
-			else if (is_in_str("NSWE", line[i]))
-				dst[i] = 2;
-			else
-			{
-				print_error(ERR_BADMAP, NULL);
-				break;
-			}
-			i++;
-		}
-	}
-	else
-	{
+	if (!dst)
 		print_error(ERR_MALLOC, "set_inttab()");
+	i = 0;
+	while (dst && i < cub->width && line[i])
+	{
+		if (line[i] == 'X' || line[i] == '0')
+			dst[i] = 0;
+		else if (line[i] == '1')
+			dst[i] = 1;
+		else if (is_in_str("NSWE", line[i]) >= 0)	// int different en fonction de l'orientation
+			dst[i] = 2;								// ou variable dans la struct contenant l'orientation ?
+		else
+			dst[i] = 9; /// ?
+		i++;
 	}
 	if (dst && i < cub->width)
 	{
@@ -95,13 +87,11 @@ int	t_cub_set_imap(t_cub *cub, char **cmap)
 	{
 		new_tab[i] = set_inttab(cub, cmap[i]);
 		if (!new_tab[i])
-			break;
+			break ;
 		i++;
 	}
-	if (cmap[i])
-	{
-		intptrtab_free(new_tab);
-	}
+	if (new_tab && i < cub->height)
+		intptrtab_free(new_tab, cub->height);
 	cub->imap = new_tab;
 	return (cub->imap != NULL);
 }

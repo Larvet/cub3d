@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 08:08:42 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/14 06:49:17 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/16 09:40:14 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,7 @@ int	t_cub_set_args(t_cub *cub, char **strtab)
 		return (0);
 	tmp = t_cub_set_rgb(cub, &strtab[i]);
 	if (!tmp)
-	{
 		return (0);
-	}
 	i += tmp;
 	return (t_cub_set_map(cub, &strtab[i]));
 }

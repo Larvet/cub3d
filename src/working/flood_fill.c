@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:32:39 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/14 10:18:06 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/16 08:15:27 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	flood_fill(t_cub cub, char **map, int px, int py) // start: x = player_pos.x
 	}
 	else if (map[py][px] == '1' || map[py][px] == 'X')
 		return (1);
-	else if (map[py][px] == '0' || is_in_str("NSWE", map[py][px]))
+	else if (map[py][px] == '0' || is_in_str("NSWE", map[py][px]) >= 0)
 	{
 		map[py][px] = 'X';
 		return (flood_fill(cub, map, px - 1, py)

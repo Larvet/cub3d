@@ -6,7 +6,7 @@
 #    By: locharve <locharve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/07 05:30:41 by locharve          #+#    #+#              #
-#    Updated: 2024/10/14 11:28:50 by locharve         ###   ########.fr        #
+#    Updated: 2024/10/16 08:52:54 by locharve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC = check_format.c \
 	check_map_edges.c \
 	error.c \
 	main.c \
+	parsing_cub.c \
 	smooth_map.c \
 	strtab_utils.c \
 	str_utils2.c \

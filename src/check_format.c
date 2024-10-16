@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 07:23:29 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/14 06:39:55 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/16 08:11:41 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static int	nswe_line_format(char *line, char *param_id)
 	if (line && param_id && !ft_strncmp(line, param_id, 2))
 	{
 		i = 2;
-		while (line[i] && is_in_str(WHITESPACES, line[i]))
+		while (line[i] && is_in_str(WHITESPACES, line[i]) >= 0)
 			i++;
 		while (line[i] && ft_isascii(line[i]))
 			i++;
-		while (line[i] && is_in_str(WHITESPACES, line[i]))
+		while (line[i] && is_in_str(WHITESPACES, line[i]) >= 0)
 			i++;
 		return (!line[i]);
 	}
@@ -51,12 +51,12 @@ static int	color_line_format(char *line, char fc_id)
 		count = 0;
 		while (line[i])
 		{
-			while (line[i] && is_in_str(WHITESPACES, line[i]))
+			while (line[i] && is_in_str(WHITESPACES, line[i]) >= 0)
 				i++;
 			count += ft_isdigit(line[i]) != 0;
 			while (line[i] && ft_isdigit(line[i]))
 				i++;
-			while (line[i] && is_in_str(WHITESPACES, line[i]))
+			while (line[i] && is_in_str(WHITESPACES, line[i]) >= 0)
 				i++;
 			i += line[i] == ',';
 		}
@@ -85,7 +85,7 @@ int	check_map_format(char **strtab)
 	return (strtab && i && !strtab[i] && pos_count == 1);
 }
 
-int	check_format(char **av, char **strtab) // av == cub->param_id
+int	check_format(char **av, char **strtab)
 {
 	int	i;
 	int	j;
@@ -101,7 +101,8 @@ int	check_format(char **av, char **strtab) // av == cub->param_id
 	i += skip_empty_lines(&strtab[i]);
 	if (!color_line_format(strtab[i], 'F'))
 		return (2);
-	i += skip_empty_lines(&strtab[i]) + 1;
+	i++;
+	i += skip_empty_lines(&strtab[i]);
 	if (!color_line_format(strtab[i], 'C'))
 		return (2);
 	i++;

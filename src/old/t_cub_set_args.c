@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 07:23:39 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/08 10:04:00 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/16 08:15:20 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	strcmp_tab(char *str, char **tab)
 		len = ft_strlen(tab[i]);
 	}
 	if (str && tab && tab[i] && ft_strlen(str) > len
-		&& is_in_str(WHITESPACES, str[len]))
+		&& is_in_str(WHITESPACES, str[len]) >= 0)
 		return (i);
 	else
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: locharve <locharve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:28:12 by locharve          #+#    #+#             */
-/*   Updated: 2024/10/09 07:30:27 by locharve         ###   ########.fr       */
+/*   Updated: 2024/10/16 08:15:01 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static int	nswe_line_format(char *line, char *param_id)
 	if (!ft_strcmp(line, param_id))
 	{
 		i = 2;
-		while (is_in_str(WHITESPACES, line[i]))
+		while (is_in_str(WHITESPACES, line[i]) >= 0)
 			i++;
 		while (ft_isascii(line[i]))
 			i++;
-		while (is_in_str(WHITESPACES, line[i]))
+		while (is_in_str(WHITESPACES, line[i]) >= 0)
 			i++;
 		return (!line[i]);
 	}
@@ -37,7 +37,7 @@ static int	color_format(char *line, char *param_id)
 	if (!ft_strcmp(line, param_id))
 	{
 		i = 1;
-		while (is_in_str(WHITESPACES, line[i]))
+		while (is_in_str(WHITESPACES, line[i]) >= 0)
 			i++;
 		while (ft_isdigit(line[i])) // check value ?
 			i++;
